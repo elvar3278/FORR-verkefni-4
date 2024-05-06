@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class FollowPlayer : MonoBehaviour
+{
+    public Transform playerTransform; // Reference to the player's transform
+    public float smoothSpeed = 0.125f; // Smoothing factor for following
+
+    void LateUpdate()
+    {
+        // Check if playerTransform is assigned
+        if (playerTransform != null)
+        {
+            // Calculate the target position to follow the player, considering the same z position
+            Vector3 targetPosition = new Vector3(playerTransform.position.x, playerTransform.position.y, transform.position.z);
+
+            // Smoothly move the follower towards the target position
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Debug.LogWarning("Player transform is not assigned to FollowPlayer script.");
+        }
+    }
+}
+
